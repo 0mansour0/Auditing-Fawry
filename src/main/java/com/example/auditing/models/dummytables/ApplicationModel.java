@@ -8,14 +8,14 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "application")
+@Table(name = "APPLICATION")
 public class ApplicationModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "app_id")
+    @Column(name = "ID")
     private Long appId;
 
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String appName;
 
     @OneToMany(mappedBy = "application_name")

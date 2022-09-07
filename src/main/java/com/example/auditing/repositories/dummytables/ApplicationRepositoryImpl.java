@@ -5,9 +5,9 @@ import com.example.auditing.repositories.base.BaseRepositoryImpl;
 
 import javax.persistence.EntityManager;
 
-public class ApplicationJpaRepositoryImpl extends BaseRepositoryImpl<ApplicationModel,Long> implements ApplicationJpaRepository {
+public class ApplicationRepositoryImpl extends BaseRepositoryImpl<ApplicationModel,Long> implements ApplicationRepository {
 
-    public ApplicationJpaRepositoryImpl(EntityManager em){
+    public ApplicationRepositoryImpl(EntityManager em){
         super(ApplicationModel.class,em);
     }
     @Override

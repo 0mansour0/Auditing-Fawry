@@ -8,9 +8,9 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Map;
 
-public class ActionJpaRepositoryImpl extends BaseRepositoryImpl<ActionModel,Long> implements ActionJpaRepository {
+public class ActionRepositoryImpl extends BaseRepositoryImpl<ActionModel,Long> implements ActionRepository {
 
-    public ActionJpaRepositoryImpl(EntityManager em) {
+    public ActionRepositoryImpl(EntityManager em) {
         super(ActionModel.class, em);
     }
 
@@ -23,7 +23,7 @@ public class ActionJpaRepositoryImpl extends BaseRepositoryImpl<ActionModel,Long
     }
 
     @Override
-    public List<ActionModel> getActionsBySearch(Map<String,String> searchCriteria) {
+    public List<ActionModel> findActionsBySearch(Map<String,String> searchCriteria) {
         boolean returnResult = false;
 
         BooleanBuilder where = new BooleanBuilder();
@@ -36,8 +36,8 @@ public class ActionJpaRepositoryImpl extends BaseRepositoryImpl<ActionModel,Long
             where.and(qAction.application_name.appName.eq(searchCriteria.get("appName")));
             returnResult = true;
         }
-        if (!searchCriteria.get("userName").isEmpty()) {
-            where.and(qAction.user_name.userName.eq(searchCriteria.get("userName")));
+        if (!searchCriteria.get("userEmail").isEmpty()) {
+            where.and(qAction.user_email.userEmail.eq(searchCriteria.get("userEmail")));
             returnResult = true;
         }
         if (!searchCriteria.get("actionType").isEmpty()) {

@@ -9,23 +9,23 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "param")
+@Table(name = "PARAM")
 public class ParamModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "param_id")
+    @Column(name = "ID")
     private Long paramId;
 
-    @Column(name = "value")
+    @Column(name = "VALUE")
     private String value;
 
     @ManyToOne
-    @JoinColumn(name = "param_type", referencedColumnName = "code")
+    @JoinColumn(name = "PARAM_TYPE", referencedColumnName = "CODE")
     private ParamTypeModel param_type;
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "action_id", referencedColumnName = "action_id")
+    @JoinColumn(name = "ACTION_ID", referencedColumnName = "ID")
     private ActionModel action_id;
 
     public Long getParamId() {

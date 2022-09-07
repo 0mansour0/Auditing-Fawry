@@ -12,37 +12,37 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "action")
+@Table(name = "ACTION")
 public class ActionModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "action_id")
+    @Column(name = "ID")
     private Long actionId;
 
-    @Column(name = "description_ar")
+    @Column(name = "DESCRIPTION_AR")
     private String descriptionAr;
 
-    @Column(name = "description_en")
+    @Column(name = "DESCRIPTION_EN")
     private String descriptionEn;
 
-    @Column(name = "time")
+    @Column(name = "TIME")
     private LocalDateTime time;
 
     @ManyToOne
-    @JoinColumn(name = "application_name", referencedColumnName = "name")
+    @JoinColumn(name = "APPLICATION_NAME", referencedColumnName = "NAME")
     private ApplicationModel application_name;
 
     @ManyToOne
-    @JoinColumn(name = "action_type", referencedColumnName = "code")
+    @JoinColumn(name = "ACTION_TYPE", referencedColumnName = "CODE")
     private ActionTypeModel action_type;
 
     @ManyToOne
-    @JoinColumn(name = "be_name", referencedColumnName = "name")
+    @JoinColumn(name = "BE_NAME", referencedColumnName = "NAME")
     private BusinessEntityModel be_name;
 
     @ManyToOne
-    @JoinColumn(name = "user_name", referencedColumnName = "name")
-    private UserModel user_name;
+    @JoinColumn(name = "USER_EMAIL", referencedColumnName = "EMAIL")
+    private UserModel user_email;
 
     @OneToMany(mappedBy = "action_id")
     @JsonIgnore
@@ -104,12 +104,12 @@ public class ActionModel implements Serializable {
         this.be_name = be_name;
     }
 
-    public UserModel getUser_name() {
-        return user_name;
+    public UserModel getUser_email() {
+        return user_email;
     }
 
-    public void setUser_name(UserModel user_name) {
-        this.user_name = user_name;
+    public void setUser_email(UserModel user_email) {
+        this.user_email = user_email;
     }
 
     public List<ParamModel> getParams() {

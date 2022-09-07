@@ -18,6 +18,6 @@ public class QueueConsumer {
     public void receive(@Payload String fileBody) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         ActionWrapper actionWrapper = objectMapper.readValue(fileBody, ActionWrapper.class);
-        actionService.create(actionWrapper);
+        actionService.addAction(actionWrapper);
     }
 }

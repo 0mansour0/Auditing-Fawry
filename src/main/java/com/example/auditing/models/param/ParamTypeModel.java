@@ -7,20 +7,20 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "param_type")
+@Table(name = "PARAM_TYPE")
 public class ParamTypeModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "paramtype_id")
+    @Column(name = "ID")
     private Long paramTypeId;
 
-    @Column(name = "code")
+    @Column(name = "CODE")
     private String paramTypeCode;
 
-    @Column(name = "name_ar")
+    @Column(name = "NAME_AR")
     private String nameAr;
 
-    @Column(name = "name_en")
+    @Column(name = "NAME_EN")
     private String nameEn;
 
     @OneToMany(mappedBy = "param_type")

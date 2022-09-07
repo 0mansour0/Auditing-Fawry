@@ -5,9 +5,9 @@ import com.example.auditing.repositories.base.BaseRepositoryImpl;
 
 import javax.persistence.EntityManager;
 
-public class ParamTypeJpaRepositoryImpl extends BaseRepositoryImpl<ParamTypeModel,Long> implements ParamTypeJpaRepository {
+public class ParamTypeRepositoryImpl extends BaseRepositoryImpl<ParamTypeModel,Long> implements ParamTypeRepository {
 
-    public ParamTypeJpaRepositoryImpl(EntityManager em) {
+    public ParamTypeRepositoryImpl(EntityManager em) {
         super(ParamTypeModel.class, em);
     }
 

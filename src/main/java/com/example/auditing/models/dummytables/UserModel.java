@@ -8,19 +8,30 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "USER")
 public class UserModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "ID")
     private Long userId;
 
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String userName;
 
-    @OneToMany(mappedBy = "user_name")
+    @Column(name = "EMAIL")
+    private String userEmail;
+
+    @OneToMany(mappedBy = "user_email")
     @JsonIgnore
     private List<ActionModel> actions;
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 
     public Long getUserId() {
         return userId;

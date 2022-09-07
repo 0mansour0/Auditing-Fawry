@@ -5,51 +5,49 @@ import com.example.auditing.models.action.ActionTypeModel;
 import com.example.auditing.models.dummytables.ApplicationModel;
 import com.example.auditing.models.dummytables.BusinessEntityModel;
 import com.example.auditing.models.dummytables.UserModel;
-import com.example.auditing.repositories.action.ActionJpaRepository;
-import com.example.auditing.repositories.action.ActionTypeJpaRepository;
-import com.example.auditing.repositories.dummytables.ApplicationJpaRepository;
-import com.example.auditing.repositories.dummytables.BusinessEntityJpaRepository;
-import com.example.auditing.repositories.dummytables.UserJpaRepository;
+import com.example.auditing.repositories.action.ActionRepository;
+import com.example.auditing.repositories.action.ActionTypeRepository;
+import com.example.auditing.repositories.dummytables.ApplicationRepository;
+import com.example.auditing.repositories.dummytables.BusinessEntityRepository;
+import com.example.auditing.repositories.dummytables.UserRepository;
 import com.example.auditing.services.param.ParamService;
-import com.mysema.commons.lang.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class ActionService {
     @Autowired
-    ActionJpaRepository actionJpaRepository;
+    ActionRepository actionRepository;
     @Autowired
-    ActionTypeJpaRepository actionTypeJpaRepository;
+    ActionTypeRepository actionTypeRepository;
     @Autowired
-    BusinessEntityJpaRepository businessEntityJpaRepository;
+    BusinessEntityRepository businessEntityRepository;
     @Autowired
-    UserJpaRepository userJpaRepository;
+    UserRepository userRepository;
     @Autowired
-    ApplicationJpaRepository applicationJpaRepository;
+    ApplicationRepository applicationRepository;
     @Autowired
     ParamService paramService;
 
-    public ActionModel create(ActionWrapper actionWrapper){
-        ActionModel action = actionJpaRepository.saveAndFlush(actionMapping(actionWrapper));
+    public ActionModel addAction(ActionWrapper actionWrapper){
+        ActionModel action = actionRepository.saveAndFlush(actionMapping(actionWrapper));
 
         actionWrapper
                 .getParams()
                 .forEach(param->param
                         .forEach((k,v)-> {
-                            paramService.create(v.get("value"),k,action);
+                            paramService.addParam(v.get("value"),k,action);
                         }));
 
         return action;
     }
 
     public List<ActionModel> searchForActions(Map<String,String> searchCriteria){
-        return actionJpaRepository.getActionsBySearch(searchCriteria);
+        return actionRepository.findActionsBySearch(searchCriteria);
     }
 
     public ActionModel actionMapping(ActionWrapper actionWrapper){
@@ -60,28 +58,18 @@ public class ActionService {
 
         LocalDateTime localDate = LocalDateTime.now();
 
-        List<Pair<String,String>> paramList = new ArrayList<>();
+        UserModel user = userRepository.findByUserEmail(actionWrapper.getUserEmail());
+        ApplicationModel app = applicationRepository.findByAppName(actionWrapper.getApplicationName());
+        BusinessEntityModel be = businessEntityRepository.findByBeName(actionWrapper.getBeName());
+        ActionTypeModel actionType = actionTypeRepository.findByActionTypeCode(actionWrapper.getActionType());
 
-        UserModel user = userJpaRepository.findByUserName(actionWrapper.getUserName());
-        ApplicationModel app = applicationJpaRepository.findByAppName(actionWrapper.getApplicationName());
-        BusinessEntityModel be = businessEntityJpaRepository.findByBeName(actionWrapper.getBeName());
-        ActionTypeModel actionType = actionTypeJpaRepository.findByActionTypeCode(actionWrapper.getActionType());
-
-        action.setUser_name(user);
+        action.setUser_email(user);
         action.setApplication_name(app);
         action.setBe_name(be);
         action.setAction_type(actionType);
-
         action.setTime(localDate);
 
-        actionWrapper
-                .getParams()
-                .forEach(param->param
-                        .forEach((k,v)-> {
-                            paramList.add(new Pair<>(k,v.get("value")));
-                        }));
-
-        Map<String, String> description = actionTemplate.generatingDescriptions(action, paramList);
+        Map<String, String> description = actionTemplate.generatingDescriptions(action, actionWrapper.getParams());
 
         action.setDescriptionAr(description.get("ar"));
         action.setDescriptionEn(description.get("en"));

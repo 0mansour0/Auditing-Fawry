@@ -5,17 +5,17 @@ import com.example.auditing.repositories.base.BaseRepositoryImpl;
 
 import javax.persistence.EntityManager;
 
-public class UserJpaRepositoryImpl extends BaseRepositoryImpl<UserModel,Long> implements UserJpaRepository {
-    public UserJpaRepositoryImpl(EntityManager em){
+public class UserRepositoryImpl extends BaseRepositoryImpl<UserModel,Long> implements UserRepository {
+    public UserRepositoryImpl(EntityManager em){
         super(UserModel.class,em);
     }
 
     @Override
-    public UserModel findByUserName(String name) {
+    public UserModel findByUserEmail(String name) {
         return queryFactory
                 .select(qUser)
                 .from(qUser)
-                .where(qUser.userName.eq(name))
+                .where(qUser.userEmail.eq(name))
                 .fetchFirst();
     }
 }

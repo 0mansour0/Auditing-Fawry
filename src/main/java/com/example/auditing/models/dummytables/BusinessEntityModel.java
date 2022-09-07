@@ -8,14 +8,14 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "business_entity")
+@Table(name = "BUSINESS_ENTITY")
 public class BusinessEntityModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "be_id")
+    @Column(name = "ID")
     private Long beId;
 
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String beName;
 
     @OneToMany(mappedBy = "be_name")

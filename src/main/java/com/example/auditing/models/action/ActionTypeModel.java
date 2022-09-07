@@ -7,26 +7,26 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "action_type")
+@Table(name = "ACTION_TYPE")
 public class ActionTypeModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "actiontype_id")
+    @Column(name = "ID")
     private Long actionTypeId;
 
-    @Column(name = "code")
+    @Column(name = "CODE")
     private String actionTypeCode;
 
-    @Column(name = "name_ar")
+    @Column(name = "NAME_AR")
     private String nameAr;
 
-    @Column(name = "name_en")
+    @Column(name = "NAME_EN")
     private String nameEn;
 
-    @Column(name = "message_template_ar")
+    @Column(name = "MESSAGE_TEMPLATE_AR")
     private String messageTemplateAr;
 
-    @Column(name = "message_template_en")
+    @Column(name = "MESSAGE_TEMPLATE_EN")
     private String messageTemplateEn;
 
     @OneToMany(mappedBy = "action_type")
