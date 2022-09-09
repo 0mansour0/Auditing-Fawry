@@ -1,5 +1,6 @@
 package com.example.auditing.repositories.dummytables;
 
+import com.example.auditing.exception.ResourceNotFoundException;
 import com.example.auditing.models.dummytables.ApplicationModel;
 import com.example.auditing.repositories.base.BaseRepositoryImpl;
 
@@ -12,10 +13,17 @@ public class ApplicationRepositoryImpl extends BaseRepositoryImpl<ApplicationMod
     }
     @Override
     public ApplicationModel findByAppName(String name) {
-        return queryFactory
-                .select(qApplication)
-                .from(qApplication)
-                .where(qApplication.appName.eq(name))
-                .fetchFirst();
+        ApplicationModel applicationModel =
+                queryFactory
+                        .select(qApplication)
+                        .from(qApplication)
+                        .where(qApplication.appName.eq(name))
+                        .fetchFirst();
+
+        if (applicationModel == null) {
+            throw new ResourceNotFoundException("Application not found");
+        }
+
+        return applicationModel;
     }
 }

@@ -1,6 +1,6 @@
 package com.example.auditing.repositories.base;
 
-import com.example.auditing.exception.DbResultNotFoundException;
+import com.example.auditing.exception.ResourceNotFoundException;
 import com.example.auditing.models.action.QActionModel;
 import com.example.auditing.models.action.QActionTypeModel;
 import com.example.auditing.models.dummytables.QApplicationModel;
@@ -32,11 +32,11 @@ public abstract class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, I
     }
 
     @Override
-    public T findByIdMandatory(ID id) throws DbResultNotFoundException {
+    public T findByIdMandatory(ID id) throws ResourceNotFoundException {
         return findById(id)
                 .orElseThrow(() -> {
                     String errorMessage = String.format("Entity [%s] with id [%s] was not found in DB", getDomainClass().getSimpleName(), id);
-                    return new DbResultNotFoundException(errorMessage);
+                    return new ResourceNotFoundException(errorMessage);
                 });
     }
 

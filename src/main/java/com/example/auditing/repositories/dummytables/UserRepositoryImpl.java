@@ -1,5 +1,6 @@
 package com.example.auditing.repositories.dummytables;
 
+import com.example.auditing.exception.ResourceNotFoundException;
 import com.example.auditing.models.dummytables.UserModel;
 import com.example.auditing.repositories.base.BaseRepositoryImpl;
 
@@ -12,10 +13,15 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<UserModel,Long> imple
 
     @Override
     public UserModel findByUserEmail(String name) {
-        return queryFactory
+        UserModel userModel = queryFactory
                 .select(qUser)
                 .from(qUser)
                 .where(qUser.userEmail.eq(name))
                 .fetchFirst();
+
+        if (userModel == null) {
+            throw new ResourceNotFoundException("User not found");
+        }
+        return userModel;
     }
 }

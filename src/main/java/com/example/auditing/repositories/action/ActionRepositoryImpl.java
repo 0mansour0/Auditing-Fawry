@@ -1,5 +1,6 @@
 package com.example.auditing.repositories.action;
 
+import com.example.auditing.exception.ResourceNotFoundException;
 import com.example.auditing.models.action.ActionModel;
 import com.example.auditing.repositories.base.BaseRepositoryImpl;
 import com.querydsl.core.BooleanBuilder;
@@ -28,6 +29,8 @@ public class ActionRepositoryImpl extends BaseRepositoryImpl<ActionModel,Long> i
 
         BooleanBuilder where = new BooleanBuilder();
 
+        List<ActionModel> actionList = null;
+
         if(!searchCriteria.get("beName").isEmpty()) {
             where.and(qAction.be_name.beName.eq(searchCriteria.get("beName")));
             returnResult = true;
@@ -51,11 +54,17 @@ public class ActionRepositoryImpl extends BaseRepositoryImpl<ActionModel,Long> i
         }
 
         if(returnResult) {
-            return queryFactory
+            actionList =
+                    queryFactory
                     .selectFrom(qAction)
                     .where(where)
                     .fetch();
         }
-        return null;
+
+        if (actionList.isEmpty()) {
+            throw new ResourceNotFoundException("no matching searching criteria");
+        }
+
+        return actionList;
     }
 }

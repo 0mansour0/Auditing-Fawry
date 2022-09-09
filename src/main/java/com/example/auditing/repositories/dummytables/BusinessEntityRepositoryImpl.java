@@ -1,5 +1,6 @@
 package com.example.auditing.repositories.dummytables;
 
+import com.example.auditing.exception.ResourceNotFoundException;
 import com.example.auditing.models.dummytables.BusinessEntityModel;
 import com.example.auditing.repositories.base.BaseRepositoryImpl;
 
@@ -12,10 +13,17 @@ public class BusinessEntityRepositoryImpl extends BaseRepositoryImpl<BusinessEnt
     }
     @Override
     public BusinessEntityModel findByBeName(String name) {
-        return queryFactory
-                .select(qBusinessEntity)
-                .from(qBusinessEntity)
-                .where(qBusinessEntity.beName.eq(name))
-                .fetchFirst();
+        BusinessEntityModel businessEntityModel =
+                queryFactory
+                        .select(qBusinessEntity)
+                        .from(qBusinessEntity)
+                        .where(qBusinessEntity.beName.eq(name))
+                        .fetchFirst();
+
+        if (businessEntityModel == null) {
+            throw new ResourceNotFoundException("Business Entity not found");
+        }
+
+        return businessEntityModel;
     }
 }
