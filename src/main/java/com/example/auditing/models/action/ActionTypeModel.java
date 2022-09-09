@@ -1,12 +1,16 @@
 package com.example.auditing.models.action;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "ACTION_TYPE")
 public class ActionTypeModel implements Serializable {
     @Id
@@ -33,59 +37,4 @@ public class ActionTypeModel implements Serializable {
     @JsonIgnore
     private List<ActionModel> actions;
 
-    public Long getActionTypeId() {
-        return actionTypeId;
-    }
-
-    public void setActionTypeId(Long actionTypeId) {
-        this.actionTypeId = actionTypeId;
-    }
-
-    public String getActionTypeCode() {
-        return actionTypeCode;
-    }
-
-    public void setActionTypeCode(String actionTypeCode) {
-        this.actionTypeCode = actionTypeCode;
-    }
-
-    public String getNameAr() {
-        return nameAr;
-    }
-
-    public void setNameAr(String nameAr) {
-        this.nameAr = nameAr;
-    }
-
-    public String getNameEn() {
-        return nameEn;
-    }
-
-    public void setNameEn(String nameEn) {
-        this.nameEn = nameEn;
-    }
-
-    public String getMessageTemplateAr() {
-        return messageTemplateAr;
-    }
-
-    public void setMessageTemplateAr(String messageTemplateAr) {
-        this.messageTemplateAr = messageTemplateAr;
-    }
-
-    public String getMessageTemplateEn() {
-        return messageTemplateEn;
-    }
-
-    public void setMessageTemplateEn(String messageTemplateEn) {
-        this.messageTemplateEn = messageTemplateEn;
-    }
-
-    public List<ActionModel> getActions() {
-        return actions;
-    }
-
-    public void setActions(List<ActionModel> actions) {
-        this.actions = actions;
-    }
 }

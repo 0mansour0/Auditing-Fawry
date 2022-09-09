@@ -2,12 +2,16 @@ package com.example.auditing.models.dummytables;
 
 import com.example.auditing.models.action.ActionModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "BUSINESS_ENTITY")
 public class BusinessEntityModel implements Serializable {
     @Id
@@ -22,27 +26,4 @@ public class BusinessEntityModel implements Serializable {
     @JsonIgnore
     private List<ActionModel> actions;
 
-    public Long getBeId() {
-        return beId;
-    }
-
-    public void setBeId(Long beId) {
-        this.beId = beId;
-    }
-
-    public String getBeName() {
-        return beName;
-    }
-
-    public void setBeName(String beName) {
-        this.beName = beName;
-    }
-
-    public List<ActionModel> getActions() {
-        return actions;
-    }
-
-    public void setActions(List<ActionModel> actions) {
-        this.actions = actions;
-    }
 }

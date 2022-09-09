@@ -1,12 +1,16 @@
 package com.example.auditing.models.param;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "PARAM_TYPE")
 public class ParamTypeModel implements Serializable {
     @Id
@@ -26,44 +30,5 @@ public class ParamTypeModel implements Serializable {
     @OneToMany(mappedBy = "param_type")
     @JsonIgnore
     private List<ParamModel> params;
-
-    public Long getParamTypeId() {
-        return paramTypeId;
-    }
-
-    public void setParamTypeId(Long paramTypeId) {
-        this.paramTypeId = paramTypeId;
-    }
-
-    public String getParamTypeCode() {
-        return paramTypeCode;
-    }
-
-    public void setParamTypeCode(String paramTypeCode) {
-        this.paramTypeCode = paramTypeCode;
-    }
-
-    public String getNameAr() {
-        return nameAr;
-    }
-
-    public void setNameAr(String nameAr) {
-        this.nameAr = nameAr;
-    }
-
-    public String getNameEn() {
-        return nameEn;
-    }
-
-    public void setNameEn(String nameEn) {
-        this.nameEn = nameEn;
-    }
-
-    public List<ParamModel> getParams() {
-        return params;
-    }
-
-    public void setParams(List<ParamModel> params) {
-        this.params = params;
-    }
+    
 }
