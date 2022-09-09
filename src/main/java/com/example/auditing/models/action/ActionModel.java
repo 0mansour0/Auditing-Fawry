@@ -5,8 +5,7 @@ import com.example.auditing.models.dummytables.BusinessEntityModel;
 import com.example.auditing.models.dummytables.UserModel;
 import com.example.auditing.models.param.ParamModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,8 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "ACTION")
 public class ActionModel implements Serializable {
     @Id

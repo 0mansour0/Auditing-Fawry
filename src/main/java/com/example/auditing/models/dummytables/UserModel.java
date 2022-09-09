@@ -2,16 +2,14 @@ package com.example.auditing.models.dummytables;
 
 import com.example.auditing.models.action.ActionModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "USER")
 public class UserModel implements Serializable {
     @Id

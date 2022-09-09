@@ -1,16 +1,14 @@
 package com.example.auditing.models.param;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "PARAM_TYPE")
 public class ParamTypeModel implements Serializable {
     @Id
@@ -30,5 +28,5 @@ public class ParamTypeModel implements Serializable {
     @OneToMany(mappedBy = "param_type")
     @JsonIgnore
     private List<ParamModel> params;
-    
+
 }

@@ -1,16 +1,14 @@
 package com.example.auditing.models.action;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "ACTION_TYPE")
 public class ActionTypeModel implements Serializable {
     @Id
