@@ -61,7 +61,7 @@ public class ActionRepositoryImpl extends BaseRepositoryImpl<ActionModel,Long> i
                     .fetch();
         }
 
-        if (actionList.isEmpty()) {
+        if (actionList == null) {
             throw new ResourceNotFoundException("no matching searching criteria");
         }
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.lang.module.ResolutionException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +35,16 @@ public class ActionResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<ActionModel>> get(@RequestBody Map<String,String> searchCriteria){
+    public ResponseEntity<List<ActionModel>> get(@RequestParam String be,@RequestParam String user,@RequestParam String app,
+    @RequestParam String action,@RequestParam String param,@RequestParam String pValue){
         try {
+            Map<String,String> searchCriteria = new HashMap<>();
+            searchCriteria.put("beName",be);
+            searchCriteria.put("appName",app);
+            searchCriteria.put("userEmail",user);
+            searchCriteria.put("actionType",action);
+            searchCriteria.put("paramType",param);
+            searchCriteria.put("paramValue",pValue);
             return new ResponseEntity<>(actionService.searchForActions(searchCriteria), HttpStatus.OK);
         } catch (ResourceNotFoundException exception){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());

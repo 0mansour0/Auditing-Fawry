@@ -1,6 +1,5 @@
 package com.example.auditing.services.action;
 
-import com.example.auditing.exception.ResourceNotFoundException;
 import com.example.auditing.models.action.ActionModel;
 import com.example.auditing.models.action.ActionTypeModel;
 import com.example.auditing.models.dummytables.ApplicationModel;

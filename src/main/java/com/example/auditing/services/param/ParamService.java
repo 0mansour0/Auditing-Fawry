@@ -8,6 +8,8 @@ import com.example.auditing.repositories.param.ParamTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ParamService {
     @Autowired
@@ -24,6 +26,10 @@ public class ParamService {
         param.setAction_id(action);
 
         return paramRepository.saveAndFlush(param);
+    }
+
+    public List<ParamModel> getParamOfType(String paramType){
+        return paramRepository.getParamOfType(paramType);
     }
 
 }
