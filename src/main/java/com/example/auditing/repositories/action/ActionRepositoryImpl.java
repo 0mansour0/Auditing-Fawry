@@ -16,20 +16,12 @@ public class ActionRepositoryImpl extends BaseRepositoryImpl<ActionModel,Long> i
     }
 
     @Override
-    public ActionModel getActionById(Long id) {
-        return queryFactory
-                .selectFrom(qAction)
-                .where(qAction.actionId.eq(id))
-                .fetchFirst();
-    }
-
-    @Override
     public List<ActionModel> findActionsBySearch(Map<String,String> searchCriteria) {
         boolean returnResult = false;
 
         BooleanBuilder where = new BooleanBuilder();
 
-        List<ActionModel> actionList = null;
+        List<ActionModel> actionList;
 
         if(!searchCriteria.get("beName").isEmpty()) {
             where.and(qAction.be_name.beName.eq(searchCriteria.get("beName")));
@@ -48,8 +40,8 @@ public class ActionRepositoryImpl extends BaseRepositoryImpl<ActionModel,Long> i
             returnResult = true;
         }
         if (!searchCriteria.get("paramType").isEmpty() && !searchCriteria.get("paramValue").isEmpty()) {
-            where.and(qAction.params.any().param_type.paramTypeCode.eq(searchCriteria.get("paramType"))
-                    .and(qAction.params.any().value.eq(searchCriteria.get("paramValue"))));
+            where.and(qParamType.paramTypeCode.eq(searchCriteria.get("paramType"))
+                    .and(qParam.value.eq(searchCriteria.get("paramValue"))));
             returnResult = true;
         }
 
@@ -57,11 +49,19 @@ public class ActionRepositoryImpl extends BaseRepositoryImpl<ActionModel,Long> i
             actionList =
                     queryFactory
                     .selectFrom(qAction)
+                    .innerJoin(qAction.params, qParam)
+                    .innerJoin(qParam.param_type, qParamType)
                     .where(where)
+                    .distinct()
+                    .fetch();
+        }else{
+            actionList =
+                    queryFactory
+                    .selectFrom(qAction)
                     .fetch();
         }
 
-        if (actionList == null) {
+        if (actionList.isEmpty()) {
             throw new ResourceNotFoundException("no matching searching criteria");
         }
 

@@ -5,6 +5,7 @@ import com.example.auditing.repositories.base.BaseRepositoryImpl;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ParamRepositoryImpl extends BaseRepositoryImpl<ParamModel,Long> implements ParamRepository {
 
@@ -13,10 +14,14 @@ public class ParamRepositoryImpl extends BaseRepositoryImpl<ParamModel,Long> imp
     }
 
     @Override
-    public List<ParamModel> getParamOfType(String type) {
+    public List<String> getParamOfType(String type) {
         return queryFactory
                 .selectFrom(qParam)
                 .where(qParam.param_type.paramTypeCode.eq(type))
-                .fetch();
+                .fetch()
+                .stream()
+                .map(ParamModel::getValue)
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

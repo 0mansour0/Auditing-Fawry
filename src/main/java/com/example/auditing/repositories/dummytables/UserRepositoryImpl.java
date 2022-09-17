@@ -12,7 +12,7 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<UserModel,Long> imple
     }
 
     @Override
-    public UserModel findByUserEmail(String name) {
+    public UserModel findUserByEmail(String name) {
         UserModel userModel = queryFactory
                 .select(qUser)
                 .from(qUser)

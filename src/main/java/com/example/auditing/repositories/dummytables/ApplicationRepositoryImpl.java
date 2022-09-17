@@ -5,6 +5,8 @@ import com.example.auditing.models.dummytables.ApplicationModel;
 import com.example.auditing.repositories.base.BaseRepositoryImpl;
 
 import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ApplicationRepositoryImpl extends BaseRepositoryImpl<ApplicationModel,Long> implements ApplicationRepository {
 
@@ -12,7 +14,7 @@ public class ApplicationRepositoryImpl extends BaseRepositoryImpl<ApplicationMod
         super(ApplicationModel.class,em);
     }
     @Override
-    public ApplicationModel findByAppName(String name) {
+    public ApplicationModel findAppByName(String name) {
         ApplicationModel applicationModel =
                 queryFactory
                         .select(qApplication)
@@ -25,5 +27,16 @@ public class ApplicationRepositoryImpl extends BaseRepositoryImpl<ApplicationMod
         }
 
         return applicationModel;
+    }
+
+    @Override
+    public List<String> getAllApps() {
+        return queryFactory
+                .selectFrom(qApplication)
+                .fetch()
+                .stream()
+                .map(ApplicationModel::getAppName)
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

@@ -12,7 +12,7 @@ public class BusinessEntityRepositoryImpl extends BaseRepositoryImpl<BusinessEnt
         super(BusinessEntityModel.class,em);
     }
     @Override
-    public BusinessEntityModel findByBeName(String name) {
+    public BusinessEntityModel findBeByName(String name) {
         BusinessEntityModel businessEntityModel =
                 queryFactory
                         .select(qBusinessEntity)

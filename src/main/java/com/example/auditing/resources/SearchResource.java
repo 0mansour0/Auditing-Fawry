@@ -42,10 +42,6 @@ public class SearchResource {
 
     @GetMapping("/param")
     public List<String> getParamOfType(@RequestParam String type){
-        return paramService.getParamOfType(type)
-                .stream()
-                .map(ParamModel::getValue)
-                .distinct()
-                .collect(Collectors.toList());
+        return paramService.getParamOfType(type);
     }
 }

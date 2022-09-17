@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "USER")
+@Table(name = "USERS")
 public class UserModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,12 @@ public class UserModel implements Serializable {
 
     @Column(name = "EMAIL")
     private String userEmail;
+
+    @Column(name = "TITLE")
+    private String userTitle;
+
+    @Column(name = "PHOTO")
+    private String userPhoto;
 
     @OneToMany(mappedBy = "user_email")
     @JsonIgnore

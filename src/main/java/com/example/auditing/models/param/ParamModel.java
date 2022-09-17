@@ -16,7 +16,7 @@ public class ParamModel implements Serializable {
     @Column(name = "ID")
     private Long paramId;
 
-    @Column(name = "VALUE")
+    @Column(name = "PARAM_VALUE")
     private String value;
 
     @ManyToOne
