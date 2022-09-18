@@ -36,7 +36,7 @@ class BusinessEntityServiceTest {
 
         when(businessEntityRepository.findBeByName( anyString() )).thenReturn(myBusinessEntity);
 
-        BusinessEntityModel businessEntityModel = businessEntityService.findBeByName("ahmed");
+        BusinessEntityModel businessEntityModel = businessEntityService.findBeByName("ahmed's BE");
 
         assertEquals("ahmed's BE",businessEntityModel.getBeName());
     }

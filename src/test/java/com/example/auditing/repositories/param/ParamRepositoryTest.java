@@ -1,6 +1,9 @@
 package com.example.auditing.repositories.param;
 
 import com.example.auditing.models.action.ActionModel;
+import com.example.auditing.models.action.ActionTypeModel;
+import com.example.auditing.models.dummytables.BusinessEntityModel;
+import com.example.auditing.models.dummytables.UserModel;
 import com.example.auditing.models.param.ParamModel;
 import com.example.auditing.models.param.ParamTypeModel;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,10 +35,17 @@ class ParamRepositoryTest {
         ParamTypeModel paramTypeModel = new ParamTypeModel();
         ParamModel paramModel = new ParamModel();
         ActionModel action = new ActionModel();
+        ActionTypeModel actionTypeModel = new ActionTypeModel();
+        BusinessEntityModel businessEntityModel = new BusinessEntityModel();
+        UserModel userModel = new UserModel();
 
-        action.setAction_type(any());
-        action.setBe_name(any());
-        action.setUser_email(any());
+        entityManager.persist(actionTypeModel);
+        entityManager.persist(businessEntityModel);
+        entityManager.persist(userModel);
+
+        action.setAction_type(actionTypeModel);
+        action.setBe_name(businessEntityModel);
+        action.setUser_email(userModel);
         entityManager.persist(action);
 
         paramTypeModel.setParamTypeCode("customer");
