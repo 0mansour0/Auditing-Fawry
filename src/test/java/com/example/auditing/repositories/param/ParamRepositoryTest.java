@@ -4,7 +4,6 @@ import com.example.auditing.models.action.ActionModel;
 import com.example.auditing.models.param.ParamModel;
 import com.example.auditing.models.param.ParamTypeModel;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.mock;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(SpringExtension.class)
 @TestPropertySource("classpath:application-test.properties")
@@ -27,12 +26,17 @@ class ParamRepositoryTest {
     TestEntityManager entityManager;
     @Autowired
     ParamRepository paramRepository;
-    ActionModel actionModel = mock(ActionModel.class);
 
     @BeforeEach
     void setUp() {
         ParamTypeModel paramTypeModel = new ParamTypeModel();
         ParamModel paramModel = new ParamModel();
+        ActionModel action = new ActionModel();
+
+        action.setAction_type(any());
+        action.setBe_name(any());
+        action.setUser_email(any());
+        entityManager.persist(action);
 
         paramTypeModel.setParamTypeCode("customer");
         entityManager.persist(paramTypeModel);
@@ -40,12 +44,11 @@ class ParamRepositoryTest {
 
         paramModel.setParam_type(paramTypeModel);
         paramModel.setValue("ali");
-        paramModel.setAction_id(actionModel);
+        paramModel.setAction_id(action);
         entityManager.persist(paramModel);
     }
 
     @Test
-    @Disabled("Not ready yet for testing")
     void getParamOfType_ShouldReturnListOfParamValueOfSpecificType() {
         List<String> paramModelList = paramRepository.getParamOfType("customer");
         assertThat(paramModelList)
