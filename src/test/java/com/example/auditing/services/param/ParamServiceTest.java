@@ -69,7 +69,7 @@ class ParamServiceTest {
 
         when(paramRepository.getParamOfType( anyString() )).thenReturn(myList);
 
-        List<String> paramList = paramService.getParamOfType("ahmed");
+        List<String> paramList = paramService.getParamOfType("ali");
 
         assertEquals("ali",paramList.get(0));
     }

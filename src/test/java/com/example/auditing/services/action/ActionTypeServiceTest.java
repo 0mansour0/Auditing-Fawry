@@ -42,7 +42,7 @@ class ActionTypeServiceTest {
 
         when(actionTypeRepository.findActionTypeByCode( anyString() )).thenReturn(myAction);
 
-        ActionTypeModel actionTypeModel = actionTypeService.findActionTypeByCode("Order");
+        ActionTypeModel actionTypeModel = actionTypeService.findActionTypeByCode("Order_Created");
 
         assertEquals("Order_Created",actionTypeModel.getActionTypeCode());
     }

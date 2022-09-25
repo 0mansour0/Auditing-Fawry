@@ -201,6 +201,32 @@ class ActionRepositoryTest {
     }
 
     @Test
+    void findActionsByAllSearchCriteria_ShouldPass() {
+        searchCriteria.put("beName",be2.getBeName());
+        searchCriteria.put("paramType",paramType1.getParamTypeCode());
+        searchCriteria.put("paramValue",param3.getValue());
+        searchCriteria.put("appName",application2.getAppName());
+        searchCriteria.put("userEmail",user2.getUserEmail());
+        List<ActionModel> actionList = actionRepository.findActionsBySearch(searchCriteria);
+
+        assertThat(actionList)
+                .asList()
+                .contains(action2);
+    }
+
+    @Test
+    void findActionsByAllSearchCriteria_ShouldThrowException() {
+        searchCriteria.put("beName",be2.getBeName());
+        searchCriteria.put("paramType",paramType1.getParamTypeCode());
+        searchCriteria.put("paramValue",param3.getValue());
+        searchCriteria.put("appName",application2.getAppName());
+        searchCriteria.put("userEmail",user1.getUserEmail());
+
+        assertThatExceptionOfType(ResourceNotFoundException.class)
+                .isThrownBy(()->actionRepository.findActionsBySearch(searchCriteria));
+    }
+
+    @Test
     void findActionsByUserWithInvalidData_ShouldThrowException() {
         searchCriteria.put("userEmail","khaled@gmail.com");
 

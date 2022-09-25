@@ -38,7 +38,7 @@ class ApplicationServiceTest {
 
         when(applicationRepository.findAppByName( anyString() )).thenReturn(myApp);
 
-        ApplicationModel applicationModel = applicationService.findAppByName("update Name");
+        ApplicationModel applicationModel = applicationService.findAppByName("Call");
 
         assertEquals("Call",applicationModel.getAppName());
     }

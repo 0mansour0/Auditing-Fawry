@@ -37,7 +37,7 @@ class UserServiceTest {
 
         when(userRepository.findUserByEmail(anyString())).thenReturn(myUser);
 
-        UserModel user = userService.findUserByEmail("hany");
+        UserModel user = userService.findUserByEmail("ahmed@gmail.com");
 
         assertEquals("ahmed@gmail.com",user.getUserEmail());
     }
